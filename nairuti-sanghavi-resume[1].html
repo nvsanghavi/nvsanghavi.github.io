@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nairuti Sanghavi - Security Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E879F9;
+            --primary-dim: #C026D3;
+            --bg-dark: #1a0b2e;
+            --bg-darker: #0f0720;
+            --text-primary: #f8f8f8;
+            --text-secondary: #d4c5e8;
+            --accent-blue: #06b6d4;
+            --accent-purple: #a78bfa;
+            --accent-pink: #fb7185;
+            --grid-color: rgba(232, 121, 249, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridScroll 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
+        }
+
+        /* Glowing orb effect */
+        .orb {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-1 {
+            top: -200px;
+            right: -200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            bottom: -200px;
+            left: -200px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+            animation: float 18s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, -50px) scale(1.1); }
+        }
+
+        .container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            z-index: 2;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 80px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-blue) 50%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-left .title {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .header-left .title span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .header-right a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .header-right a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Section styling */
+        section {
+            margin-bottom: 70px;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.3s; }
+        section:nth-child(5) { animation-delay: 0.4s; }
+        section:nth-child(6) { animation-delay: 0.5s; }
+        section:nth-child(7) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '✦';
+            color: var(--accent-pink);
+            font-size: 1.5rem;
+        }
+
+        /* Summary */
+        .summary {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            max-width: 1100px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.05), rgba(6, 182, 212, 0.05));
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+        }
+
+        /* Certifications Grid */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(232, 121, 249, 0.2);
+            padding: 24px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-blue), var(--accent-pink));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .cert-card:hover {
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.08), rgba(6, 182, 212, 0.05));
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(232, 121, 249, 0.2);
+        }
+
+        .cert-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .cert-badge {
+            flex-shrink: 0;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.1), rgba(167, 139, 250, 0.1));
+            border-radius: 50%;
+            border: 2px solid rgba(232, 121, 249, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cert-badge img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .cert-card:hover .cert-badge {
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.2), rgba(167, 139, 250, 0.15));
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(232, 121, 249, 0.3);
+        }
+
+        .cert-info {
+            flex: 1;
+        }
+
+        .cert-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .cert-issuer {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .cert-date {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: 300;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--accent-purple);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.05), rgba(6, 182, 212, 0.03));
+            border-left-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(232, 121, 249, 0.1);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .exp-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .exp-company {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .exp-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            white-space: nowrap;
+        }
+
+        .exp-responsibilities {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .exp-responsibilities li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .exp-responsibilities li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--accent-pink);
+            font-size: 1rem;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 30px;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(6, 182, 212, 0.05));
+            border-color: var(--accent-purple);
+            box-shadow: 0 4px 20px rgba(167, 139, 250, 0.1);
+        }
+
+        .edu-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .edu-school {
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .edu-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .edu-honors {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--accent-purple);
+            font-style: italic;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: grid;
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(232, 121, 249, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            background: linear-gradient(135deg, rgba(232, 121, 249, 0.08), rgba(251, 113, 133, 0.05));
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(232, 121, 249, 0.1);
+        }
+
+        .skill-category-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category-title::before {
+            content: '◆';
+            color: var(--accent-pink);
+        }
+
+        .skill-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .skill-tools {
+            margin-top: 12px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .skill-tools strong {
+            color: var(--accent-blue);
+        }
+
+        /* Decorative sparkles */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .sparkle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle 3s infinite;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .header-left h1 {
+                font-size: 2.5rem;
+            }
+
+            .header-right {
+                text-align: left;
+            }
+
+            .exp-header {
+                flex-direction: column;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cursor effect */
+        @media (hover: hover) {
+            body {
+                cursor: crosshair;
+            }
+
+            a, button {
+                cursor: pointer;
+            }
+        }
+
+        /* Decorative footer */
+        .terminal-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(15, 7, 32, 0.95), rgba(26, 11, 46, 0.95));
+            backdrop-filter: blur(10px);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, var(--primary), var(--accent-blue), var(--accent-pink)) 1;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            z-index: 100;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+        }
+
+        .terminal-footer span {
+            color: var(--accent-purple);
+        }
+
+        .cursor-blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>NAIRUTI SANGHAVI</h1>
+                <p class="title">Security Engineer <span>//</span> Cybersecurity Specialist</p>
+            </div>
+            <div class="header-right">
+                <div>+1 647-937-5327</div>
+                <div>Mississauga, Ontario</div>
+                <div><a href="/cdn-cgi/l/email-protection#4628272f3433322f352728212e27302f777e06212b272f2a6825292b"><span class="__cf_email__" data-cfemail="a0cec1c9d2d5d4c9d3c1cec7c8c1d6c99198e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</span></a></div>
+                <div><a href="https://www.linkedin.com/in/nairutisanghavi/" target="_blank">linkedin.com/in/nairutisanghavi</a></div>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="summary">
+                Dedicated and results-driven Security Engineer with 4+ years of experience across Cloud Security, Data Security, Security Operations and Identity & Access Management (IAM) within highly regulated enterprise environments. Strong background in assessing and improving Azure cloud security, IAM controls, access governance, and privileged access mechanisms. Experienced in translating audit and risk findings into practical control improvements that reduce identity abuse, unauthorized access, and data exposure. Proven ability to collaborate with engineering, cloud, and security teams to strengthen security posture without disrupting business operations.
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-badge">
+                        <img src="crisc-badge.png" alt="CRISC">
+                    </div>
+                    <div class="cert-info">
+                        <div class="cert-name">Certified in Risk and Information Systems (CRISC)</div>
+                        <div class="cert-issuer">ISACA</div>
+                        <div class="cert-date">June 2025</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-badge">
+                        <img src="gpen-badge.png" alt="GPEN">
+                    </div>
+                    <div class="cert-info">
+                        <div class="cert-name">GIAC Certified Penetration Tester</div>
+                        <div class="cert-issuer">SANS Institute</div>
+                        <div class="cert-date">April 2025</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-badge">
+                        <img src="https://images.credly.com/images/2b5b9bb6-1e04-43e2-bd06-2dc8f29d19bf/image.png" alt="CEH">
+                    </div>
+                    <div class="cert-info">
+                        <div class="cert-name">Certified Ethical Hacker v11</div>
+                        <div class="cert-issuer">EC-Council (ECC8732106594)</div>
+                        <div class="cert-date">Dec 2021</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-badge">
+                        <img src="https://images.credly.com/images/d5b5f8df-976b-4c11-a516-f1c2e6f8c698/image.png" alt="Proofpoint">
+                    </div>
+                    <div class="cert-info">
+                        <div class="cert-name">Certified Identity Threat Specialist</div>
+                        <div class="cert-issuer">Proofpoint</div>
+                        <div class="cert-date">Jan 2024</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-badge">
+                        <img src="azure-badge.png" alt="Azure">
+                    </div>
+                    <div class="cert-info">
+                        <div class="cert-name">Microsoft Azure Fundamentals, AZ-900</div>
+                        <div class="cert-issuer">Microsoft (I729-2993)</div>
+                        <div class="cert-date">April 2023</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Cybersecurity Audit Manager</div>
+                        <div class="exp-company">TD Bank, Toronto ON</div>
+                    </div>
+                    <div class="exp-date">Sept 2025 - Present</div>
+                </div>
+                <ul class="exp-responsibilities">
+                    <li>Assessed Azure cloud security controls with a focus on Compliance as Code (CaC), access management, authentication, and authorization and security engineering mechanisms in regulated environments.</li>
+                    <li>Partnered with cloud security and engineering teams to provide control design improvement recommendations, emphasizing Zero Trust and least-privilege principles.</li>
+                    <li>Assessed DLP and data protection controls across Azure and enterprise environments to evaluate protection of regulated and sensitive data.</li>
+                    <li>Collaborated with stakeholders to support regulatory requirements from OSFI, OCC and other regulatory bodies to identify and support minimizing the gaps in information security systems.</li>
+                    <li>Reviewed data classification, access restrictions, and monitoring mechanisms to identify data exposure and insider risk scenarios.</li>
+                    <li>Analyzed control gaps related to unauthorized data access and data exfiltration, providing actionable improvement recommendations.</li>
+                    <li>Collaborated with cloud security and data protection teams to support continuous improvement of data security posture.</li>
+                    <li>Applied attacker-centric thinking to evaluate identity abuse scenarios impacting cloud and enterprise systems.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Consultant - Information Security</div>
+                        <div class="exp-company">CIBC, Toronto ON</div>
+                    </div>
+                    <div class="exp-date">Oct 2024 - Sept 2025</div>
+                </div>
+                <ul class="exp-responsibilities">
+                    <li>Collaborated with stakeholders to develop, refine, and improve 20+ data loss prevention (DLP) policies and procedures, aiming at improving the alert management and threat detection system by 40%.</li>
+                    <li>Developed and implemented 10+ DLP policies and rules for email and network channels to mitigate data leakage risks and infiltration attempts.</li>
+                    <li>Provided assistance in User Acceptance Testing (UAT) for tools and applications before their launch to guarantee their functionality. Aided the CIBC Application Team in upgrading the FortiSOAR application to version 7.4.</li>
+                    <li>Conducted and tested Proof of Concept reports and deliverables for implementing new tools and procedures in the DLP environment.</li>
+                    <li>Aligned 33 DLP policies with organizational risk appetite, regulatory requirements, and industry best practices by configuring the controls and decreased the false positive rate by 20%.</li>
+                    <li>Provided comprehensive training to new team members on DLP workflows, escalation protocols, and best practices to ensure consistency and efficiency within the team.</li>
+                    <li>Conducted quarterly and semiannual reviews and discussions to ensure DLP policies remain relevant to evolving business needs and conveyed risk endurance to the upper management, thus enhancing the risk mitigating strategy by 30%.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Senior Analyst - Information Security</div>
+                        <div class="exp-company">CIBC, Toronto ON</div>
+                    </div>
+                    <div class="exp-date">Oct 2023 - Sept 2024</div>
+                </div>
+                <ul class="exp-responsibilities">
+                    <li>Ensured adherence to CIBC Security policies by rigorously monitoring and analyzing 500+ internal email and network communications from Enterprise and Bank USA DLP systems directed toward external domains, identifying potential security risks and policy violations, and providing detailed reports to management to support decision-making and corrective actions.</li>
+                    <li>Employed a range of tools and software, including FortiSoar, Prisma, Proofpoint, Proofpoint Archive, CyberArk, and Jira, to monitor, manage, and respond to data loss prevention incidents.</li>
+                    <li>Assisted 10+ Lines of Business by retrieving and delivering archived client and employee communications to support ongoing investigations, address complaints, and facilitate the resolution of issues as required.</li>
+                    <li>Supported internal teams by weekly identifying and raising 50+ alerts for all plain-text password violations detected through the command line.</li>
+                    <li>Investigated individuals who had accessed CIBC's network post-termination, communicating findings to the Forensics team for further examination.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Coordinator - Information Security, SOC</div>
+                        <div class="exp-company">CIBC, Toronto ON</div>
+                    </div>
+                    <div class="exp-date">May 2023 - Oct 2023</div>
+                </div>
+                <ul class="exp-responsibilities">
+                    <li>Conducted proactive monitoring, in-depth analysis, and investigation of security events and incidents across various endpoints, proxy, server, and network infrastructure, collecting artifacts, and managing incident response activities.</li>
+                    <li>Analyzed security logs from various data sources, including IDS/IPS, SIEM, proxy, and firewall logs, and performed incident mitigation and developed remediation processes.</li>
+                    <li>Created and documented results from 35+ previously encountered incidents in the form of Runbooks and Playbooks for greater efficiency.</li>
+                    <li>Coordinated with the Incident Response and Forensics team for deep packet inspection of threats by sandboxing and thereafter creating rules in the firewall to blacklist the compromised web traffic.</li>
+                    <li>Performed triaging for around 200 alerts generated by FireEye, Proofpoint, Microsoft Defender, and Palo Alto Networks in centralized FortiSOAR, Sentinel, and ArcSight environments and reevaluated the controls implemented in case of false positive threats.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">IT SOC Analyst</div>
+                        <div class="exp-company">Surrey Place, Toronto ON</div>
+                    </div>
+                    <div class="exp-date">Oct 2022 - May 2023</div>
+                </div>
+                <ul class="exp-responsibilities">
+                    <li>Conducted proactive monitoring of network and security devices, Microsoft Defender, and Sophos endpoint agent for threats and vulnerabilities by conducting regular configuration checks.</li>
+                    <li>Assisted in the investigation of phishing emails, analyzing their characteristics and impact on the organization's systems, and implemented proper blocking mechanisms on firewall and other security devices.</li>
+                    <li>Participated in the identification of suspicious websites, unauthorized software, and policy violations, taking appropriate actions to safeguard the organization's assets.</li>
+                    <li>Acted as L3 technical support for the support team and helped in the ticketing system to organize better and track IT help requests with minimal supervision and in team settings to provide IT support for over 600 users in 9 offices across Canada.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Education</h2>
+            
+            <div class="education-item">
+                <div class="edu-title">Rogers Cybersecure Catalyst - Advanced Cyber Education</div>
+                <div class="edu-school">Toronto Metropolitan University</div>
+                <div class="edu-date">Oct 2024 - Feb 2025</div>
+            </div>
+
+            <div class="education-item">
+                <div class="edu-title">Postgraduate in Cyber-Security and Computer Forensics</div>
+                <div class="edu-school">Lambton College</div>
+                <div class="edu-date">Jan 2022 - Aug 2023</div>
+                <div class="edu-honors">Awards & Recognition: Dean's Honor List Winter 2022, Spring 2022, Winter 2023</div>
+            </div>
+
+            <div class="education-item">
+                <div class="edu-title">B.E. in Electronics and Telecommunication Engineering</div>
+                <div class="edu-school">Mumbai University</div>
+                <div class="edu-date">Jul 2017 - Sept 2021</div>
+            </div>
+        </section>
+
+        <section style="margin-bottom: 100px;">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <div class="skill-category-title">Offensive Security</div>
+                    <div class="skill-content">
+                        Enterprise Network Penetration Testing, Attack Path & Kill-Chain Analysis, Credential Abuse & Privilege Escalation Techniques, Exploitation of Misconfigurations & Weak Access Controls, Post-Exploitation & Lateral Movement Analysis, Threat Modeling & Adversary Simulation.
+                    </div>
+                    <div class="skill-tools"><strong>Tools:</strong> Metasploit, Burp Suite, Nmap, Nessus, MSF Payloads, Kali Linux, Impacket</div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Data Security</div>
+                    <div class="skill-content">
+                        Data Loss Prevention (Email & Network), Information Protection & Data Classification, Insider Risk Detection & Monitoring, Data Exfiltration Detection & Prevention, Regulatory Data Protection Controls.
+                    </div>
+                    <div class="skill-tools"><strong>Platforms:</strong> Proofpoint, Palo Alto Networks, Microsoft Purview, Prisma, FortiSOAR</div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Security Operations</div>
+                    <div class="skill-content">
+                        Microsoft Sentinel, ArcSight, Trend Micro, Proofpoint (Email Security & DLP), Proofpoint Archive, Symantec, Microsoft Defender (Endpoint & Identity Exposure), FireEye, Palo Alto Network NGFW, Prisma, EDR & XDR
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="terminal-footer">
+        <span>✦</span> Designed with passion · Nairuti Sanghavi · Security Engineer <span class="cursor-blink">✦</span>
+    </div>
+</body>
+</html>
